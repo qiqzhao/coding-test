@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Button, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { getUser } from '../../api/user';
 
 const ROLE_LABEL_MAP = {
   FRONTEND: 'cyan',
@@ -44,31 +45,41 @@ const OperationPanel = styled.div`
 `;
 
 export const ProfileDetail = () => {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    async function getUserInfo(id) {
+      const data = await getUser(id);
+      setUser(data);
+    }
+    getUserInfo();
+  }, []);
+
   return (
     <Container>
-      <Avatar size={150} src="https://p.ipic.vip/hllizo.JPG" />
+      <Avatar size={150} src={user?.avatar} />
 
       <NameLine>
-        <h3>Qiqi Zhao</h3>
-        <StyledTag color={ROLE_LABEL_MAP.FRONTEND}>Role</StyledTag>
+        <h3>{user?.name}</h3>
+        <StyledTag color={ROLE_LABEL_MAP[user?.role || 'FRONTEND']}>Role</StyledTag>
       </NameLine>
 
       <Detail>
         <InformationLine>
           <span>Country: </span>
-          <strong>China</strong>
+          <strong>{user?.country}</strong>
         </InformationLine>
         <InformationLine>
           <span>City: </span>
-          <strong>Guangdong Huizhou</strong>
+          <strong>{user?.city}</strong>
         </InformationLine>
         <InformationLine>
           <span>Phone: </span>
-          <strong>13152486382</strong>
+          <strong>{user?.phone}</strong>
         </InformationLine>
         <InformationLine>
           <span>Email: </span>
-          <strong>bme_ritter@foxmail.com</strong>
+          <strong>{user?.email}</strong>
         </InformationLine>
       </Detail>
 

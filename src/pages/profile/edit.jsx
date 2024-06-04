@@ -1,14 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Flex, Form, Input } from 'antd';
 import styled from 'styled-components';
-
-const onFinish = (values) => {
-  console.log('Success:', values);
-};
-
-const onFinishFailed = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
+import { getUser, updateUser } from '../../api/user';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -18,14 +12,18 @@ const Container = styled.div`
 
 export const ProfileEditPage = () => {
   const [form] = Form.useForm();
-  form.setFieldsValue({
-    avatar: 'https://p.ipic.vip/hllizo.JPG',
-    name: 'Qiqi Zhao',
-    phone: '13152486382',
-    country: 'China',
-    city: 'Guangdong Huizhou',
-    email: 'bme_ritter@foxmail.com',
-  });
+
+  const [user, setUser] = useState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function getUserInfo(id) {
+      const data = await getUser(id);
+      setUser(data);
+      form.setFieldsValue(data);
+    }
+    getUserInfo();
+  }, []);
 
   const validatePhone = (rule, value) => {
     if (!value) {
@@ -36,6 +34,18 @@ export const ProfileEditPage = () => {
       return Promise.reject(new Error('Please input your right phone!'));
     }
     return Promise.resolve();
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
+  const onFinish = async (values) => {
+    console.log('Success:', values);
+
+    await updateUser(values);
+
+    navigate(-1);
   };
 
   return (
@@ -56,6 +66,10 @@ export const ProfileEditPage = () => {
         </Form.Item>
 
         <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input your name!' }]}>
+          <Input />
+        </Form.Item>
+
+        <Form.Item label="Role" name="role" rules={[{ required: true, message: 'Please input your role!' }]}>
           <Input />
         </Form.Item>
 
@@ -89,8 +103,7 @@ export const ProfileEditPage = () => {
             <Button
               danger
               onClick={() => {
-                console.log('test', form);
-                form.resetFields();
+                form.setFieldsValue(user);
               }}>
               Reset
             </Button>
