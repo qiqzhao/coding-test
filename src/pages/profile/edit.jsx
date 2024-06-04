@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Flex, Form, Input } from 'antd';
 import styled from 'styled-components';
 import { getUser, updateUser } from '../../api/user';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -11,6 +11,7 @@ const Container = styled.div`
 `;
 
 export const ProfileEditPage = () => {
+  const { id } = useParams();
   const [form] = Form.useForm();
 
   const [user, setUser] = useState();
@@ -22,7 +23,7 @@ export const ProfileEditPage = () => {
       setUser(data);
       form.setFieldsValue(data);
     }
-    getUserInfo();
+    getUserInfo(id);
   }, []);
 
   const validatePhone = (rule, value) => {
@@ -43,7 +44,7 @@ export const ProfileEditPage = () => {
   const onFinish = async (values) => {
     console.log('Success:', values);
 
-    await updateUser(values);
+    await updateUser({ ...values, _id: user._id });
 
     navigate(-1);
   };

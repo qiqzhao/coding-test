@@ -13,7 +13,7 @@ function App() {
         <Route exact path="/" element={<ProfileDetail />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile" element={<ProfileDetail />} />
-        <Route path="/profile/edit" element={<ProfileEditPage />} />
+        <Route path="/profile/edit/:id" element={<ProfileEditPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

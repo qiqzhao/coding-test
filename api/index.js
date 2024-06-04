@@ -1,7 +1,13 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const routes = require('./routes');
+
+mongoose
+  .connect('mongodb://localhost:27017/coding-test')
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Error connecting to MongoDB:', err));
 
 const app = express();
 const port = 3001;

@@ -52,7 +52,7 @@ export const ProfileDetail = () => {
       const data = await getUser(id);
       setUser(data);
     }
-    getUserInfo();
+    getUserInfo('665ee30d488e7c70da14d48b');
   }, []);
 
   return (
@@ -61,7 +61,7 @@ export const ProfileDetail = () => {
 
       <NameLine>
         <h3>{user?.name}</h3>
-        <StyledTag color={ROLE_LABEL_MAP[user?.role || 'FRONTEND']}>Role</StyledTag>
+        <StyledTag color={ROLE_LABEL_MAP[user?.role || 'FRONTEND']}>{user?.role}</StyledTag>
       </NameLine>
 
       <Detail>
@@ -85,7 +85,7 @@ export const ProfileDetail = () => {
 
       <OperationPanel>
         <Button type="primary">
-          <Link to="/profile/edit">Edit Profile</Link>
+          <Link to={`/profile/edit/${user?._id}`}>Edit Profile</Link>
         </Button>
       </OperationPanel>
     </Container>

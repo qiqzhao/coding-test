@@ -1,21 +1,41 @@
-const { Auth } = require('@blocklet/sdk');
+const User = require('../model/user');
 
 class UserController {
-  getUser(req, res, next) {
-    return res.send({
-      avatar: 'https://p.ipic.vip/hllizo.JPG',
-      name: 'Qiqi Zhao',
-      phone: '13152486382',
-      role: 'FRONTEND',
-      country: 'China',
-      city: 'Guangdong Huizhou',
-      email: 'bme_ritter@foxmail.com',
-    });
+  async getUser(req, res, next) {
+    try {
+      const user = await User.findById(req.params.id);
+      return res.send(user);
+    } catch (err) {
+      next(err);
+    }
   }
 
-  updateUser(req, res, next) {
-    const user = req.body;
-    return res.send(user);
+  async getAll(req, res, next) {
+    try {
+      const users = await User.find({});
+      return res.send(users);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async updateUser(req, res, next) {
+    try {
+      const { _id, avatar, name, role, phone, country, city } = req.body;
+      const updatedUser = await User.findByIdAndUpdate(
+        _id,
+        { avatar, name, role, phone, country, city },
+        { new: true, runValidators: true }
+      );
+      if (updatedUser) {
+        return res.send(updatedUser);
+      } else {
+        console.log('User not found');
+        next();
+      }
+    } catch (err) {
+      next(err);
+    }
   }
 }
 
