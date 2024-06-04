@@ -35,12 +35,17 @@
     ]
   },
   "dependencies": {
+    "@blocklet/sdk": "^1.16.26",
     "antd": "^5.18.0",
     "axios": "^1.7.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.0",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "use-local-storage-state": "^19.2.0"
   },
   "devDependencies": {
     "@arcblock/eslint-config": "^0.2.4",

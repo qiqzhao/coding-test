@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const axiosEp = axios.create({
+  baseURL: 'http://localhost:3001',
   timeout: 30000,
 });
 
@@ -13,18 +14,13 @@ axiosEp.interceptors.request.use(
 
 axiosEp.interceptors.response.use(
   async (res) => {
-    const message = res.data.message;
-    if (code === 404) {
-    } else if (code === 402) {
-    } else {
-    }
-
+    console.log('dddd', res.status);
     return res.data;
   },
   async (error) => {
     console.log('error');
 
-    return false;
+    throw error;
   }
 );
 
