@@ -1,0 +1,47 @@
+name: blocklet-coding-test
+title: blocklet-coding-test
+description: A Blocklet Server blocklet
+keywords:
+  - blocklet
+  - react
+group: static
+did: z2qaCuANgsWb4yqkfASTS8HVD1d57AJ2K4hww
+main: dist
+author:
+  name: qiqzhao
+  email: bme_ritter@foxmail.com
+repository:
+  type: git
+  url: git+https://github.com/blocklet/create-blocklet.git
+specVersion: 1.1.1
+version: 0.1.0
+logo: logo.png
+files:
+  - logo.png
+  - screenshots
+interfaces:
+  - type: web
+    name: publicUrl
+    path: /
+    prefix: "*"
+    port: BLOCKLET_PORT
+    protocol: http
+community: ""
+documentation: ""
+homepage: ""
+license: ""
+payment:
+  price: []
+  share: []
+timeout:
+  start: 60
+requirements:
+  server: ">=1.6.29"
+  os: "*"
+  cpu: "*"
+scripts:
+  dev: npm run start
+environments: []
+capabilities: {}
+screenshots: []
+components: []
