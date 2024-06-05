@@ -10,6 +10,14 @@ export const getUser = (id) => {
 export const updateUser = (user) => {
   return axiosEp({
     url: '/api/users',
+    method: 'put',
+    data: user,
+  });
+};
+
+export const createUser = (user) => {
+  return axiosEp({
+    url: '/api/users',
     method: 'post',
     data: user,
   });

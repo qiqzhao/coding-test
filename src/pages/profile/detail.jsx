@@ -3,6 +3,7 @@ import { Avatar, Button, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUser } from '../../api/user';
+import { NotData } from '../../components/no-data';
 
 const ROLE_LABEL_MAP = {
   FRONTEND: 'cyan',
@@ -94,7 +95,7 @@ export const ProfileDetail = () => {
           </OperationPanel>
         </>
       ) : (
-        <div>No user</div>
+        <NotData />
       )}
     </Container>
   );

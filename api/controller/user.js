@@ -37,6 +37,15 @@ class UserController {
       next(err);
     }
   }
+
+  async createUser(req, res, next) {
+    try {
+      const createdUser = await User.create(req.body);
+      return res.send(createdUser._id);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = UserController;
